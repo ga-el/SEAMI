@@ -1,5 +1,4 @@
 ---
-// src/pages/complete-profile.astro
 ---
 
 <html lang="es">
@@ -10,11 +9,11 @@
   </head>
 
   <body class="dark-mode">
-
     <!-- Header -->
     <header class="header">
       <a href="/" class="logo">SEAMI</a>
       <button id="toggle-theme" class="theme-toggle">🌙</button>
+      
     </header>
 
     <!-- Contenido principal -->
@@ -32,10 +31,18 @@
 
           <div class="form-row">
             <input type="text" name="second_last_name" placeholder="Apellido Materno (opcional)" />
-            <input type="number" name="semester" placeholder="Semestre actual (ej. 5)" min="1" max="12" required />
+            <input
+              type="number"
+              name="semester"
+              placeholder="Semestre actual (ej. 5)"
+              min="1"
+              max="6"
+              required
+              class="no-spin"
+            />
           </div>
 
-          <input type="date" name="birthdate" placeholder="Fecha de nacimiento" />
+          <input type="date" name="birthdate" placeholder="Fecha de nacimiento" class="styled-date" />
 
           <!-- Materias y Profesores -->
           <h3>Materias y Profesores Asignados</h3>
@@ -77,29 +84,21 @@
       const toggleBtn = document.getElementById('toggle-theme');
       const body = document.body;
 
-      // Cargar tema desde localStorage
       const savedTheme = localStorage.getItem('theme');
       if (savedTheme === 'light') {
         body.classList.remove('dark-mode');
         toggleBtn.textContent = '☀️';
       }
 
-      // Cambiar tema y guardar en localStorage
       toggleBtn.addEventListener('click', () => {
         body.classList.toggle('dark-mode');
         const isDarkMode = body.classList.contains('dark-mode');
-        if (isDarkMode) {
-          toggleBtn.textContent = '🌙';
-          localStorage.setItem('theme', 'dark');
-        } else {
-          toggleBtn.textContent = '☀️';
-          localStorage.setItem('theme', 'light');
-        }
+        toggleBtn.textContent = isDarkMode ? '🌙' : '☀️';
+        localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
       });
     </script>
 
     <style>
-      /* Reset básico */
       * {
         margin: 0;
         padding: 0;
@@ -155,7 +154,6 @@
         color: white;
       }
 
-      /* === Header === */
       .header {
         position: fixed;
         top: 0;
@@ -169,20 +167,13 @@
         padding: 1rem 2rem;
         color: white;
         box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
-        transition: all 0.3s ease;
       }
 
       .logo {
-        font-size: 1.7rem;
+        font-size: 1.5rem;
         font-weight: bold;
         color: #8bc34a;
         text-decoration: none;
-        cursor: pointer;
-        transition: color 0.3s ease;
-      }
-
-      .logo:hover {
-        color: #6aab3b;
       }
 
       .theme-toggle {
@@ -191,14 +182,8 @@
         font-size: 1.2rem;
         cursor: pointer;
         color: white;
-        transition: transform 0.3s ease;
       }
 
-      .theme-toggle:hover {
-        transform: rotate(45deg);
-      }
-
-      /* === Contenedor Glassmorphic === */
       .glass-container {
         background: rgba(255, 255, 255, 0.05);
         border-radius: 16px;
@@ -209,7 +194,6 @@
         box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
         backdrop-filter: blur(10px);
         border: 1px solid rgba(255, 255, 255, 0.1);
-        animation: fadeInUp 0.8s ease-out;
       }
 
       h2 {
@@ -239,7 +223,8 @@
         margin-bottom: 1.5rem;
       }
 
-      .form-row input {
+      .form-row input,
+      .styled-date {
         flex: 1;
         padding: 0.8rem;
         border: none;
@@ -251,12 +236,12 @@
         transition: background 0.3s ease;
       }
 
-      .form-row input:focus {
+      .form-row input:focus,
+      .styled-date:focus {
         background: rgba(255, 255, 255, 0.15);
         box-shadow: 0 0 5px rgba(139, 195, 74, 0.4);
       }
 
-      /* === Diseño de tabla personalizada === */
       .table-like {
         display: grid;
         grid-template-columns: 1fr 1fr;
@@ -271,7 +256,6 @@
         background: rgba(255, 255, 255, 0.1);
         color: white;
         font-size: 1rem;
-        transition: background 0.3s ease;
       }
 
       .table-like input:focus {
@@ -279,24 +263,6 @@
         box-shadow: 0 0 5px rgba(139, 195, 74, 0.4);
       }
 
-      @media (max-width: 600px) {
-        .form-row,
-        .table-like {
-          grid-template-columns: 1fr;
-          flex-direction: column;
-        }
-
-        .table-like {
-          display: flex;
-        }
-
-        .form-row input,
-        .table-like input {
-          font-size: 1rem;
-        }
-      }
-
-      /* === Botón finalizar === */
       .auth-form button {
         padding: 0.8rem;
         background: transparent;
@@ -315,15 +281,30 @@
         transform: scale(1.02);
       }
 
-      @keyframes fadeInUp {
-        from {
-          opacity: 0;
-          transform: translateY(20px);
+      @media (max-width: 600px) {
+        .form-row,
+        .table-like {
+          flex-direction: column;
+          display: flex;
         }
-        to {
-          opacity: 1;
-          transform: translateY(0);
-        }
+      }
+
+      /* Eliminar flechas de los inputs tipo number */
+      input[type='number'].no-spin::-webkit-outer-spin-button,
+      input[type='number'].no-spin::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+      }
+
+      input[type='number'].no-spin {
+        -moz-appearance: textfield;
+      }
+
+      /* Estilo para input de fecha */
+      .styled-date {
+        display: block;
+        width: 100%;
+        margin: 1rem 0;
       }
     </style>
   </body>
