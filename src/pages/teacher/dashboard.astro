@@ -1,0 +1,34 @@
+---
+// src/pages/teacher/dashboard.astro
+---
+<html>
+  <body>
+    <h2>Panel del Profesor</h2>
+    <h3>Subir Nuevo Video</h3>
+    <form action="/api/upload-video" method="post" enctype="multipart/form-data">
+      <input type="text" name="title" placeholder="Título del video" required />
+      <textarea name="description" placeholder="Descripción del video"></textarea>
+      <input type="file" name="video" accept="video/*" required />
+      <input type="text" name="tags" placeholder="Etiquetas (separadas por comas)" />
+      <select name="level">
+        <option value="4">4to Semestre</option>
+        <option value="5">5to Semestre</option>
+        <option value="6">6to Semestre</option>
+      </select>
+      <button type="submit">Subir Video</button>
+    </form>
+
+    <h3>Mis Videos</h3>
+    <div class="videos">
+      <div class="video-card">
+        <h4>Ecuaciones Diferenciales Básicas</h4>
+        <p>Reproducciones: 150</p>
+        <button>Editar</button>
+        <button>Eliminar</button>
+      </div>
+    </div>
+
+    <br />
+    <a href="/">Cerrar Sesión</a>
+  </body>
+</html>

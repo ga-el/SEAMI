@@ -1,0 +1,23 @@
+---
+// src/pages/watch.astro
+import Header from '../components/header.astro'
+---
+
+<html>
+  <head>
+    <title>Ver Video - RevisApp</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <Header />
+    <main style="margin-top: 2rem;">
+      <h2>Ecuaciones Diferenciales Básicas</h2>
+      <video controls width="80%">
+        <source src="/sample.mp4" type="video/mp4" />
+        Tu navegador no soporta el reproductor de video.
+      </video>
+      <p>Profesor: Carlos Pérez</p>
+      <a href="/dashboard">Volver al inicio</a>
+    </main>
+  </body>
+</html>

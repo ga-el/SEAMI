@@ -1,0 +1,297 @@
+---
+// src/pages/register.astro
+---
+
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <title>SEAMI - Registrarse</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+
+  <body class="dark-mode">
+
+    <!-- Header -->
+    <header class="header">
+      <a href="/" class="logo">SEAMI</a>
+      <button id="toggle-theme" class="theme-toggle">🌙</button>
+    </header>
+
+    <!-- Formulario Registro Inicial -->
+    <main style="padding: 2rem;">
+      <section class="glass-container">
+        <h2>Registrarse</h2>
+        <form method="post" action="/complete-profile" class="auth-form" id="register-form">
+          <!-- Campos obligatorios -->
+          <input type="email" name="email" placeholder="Correo electrónico" required />
+          <input type="password" name="password" placeholder="Contraseña" required />
+          <input type="text" name="school_key" placeholder="Clave escolar" required />
+
+          <!-- Selección de rol -->
+          <select name="role" id="role-select">
+            <option value="alumno">Soy Alumno</option>
+            <option value="profesor">Soy Profesor</option>
+          </select>
+
+          <!-- Botón de envío -->
+          <button type="submit">Registrar</button>
+        </form>
+
+        <!-- Enlace a login -->
+        <p class="text-center">¿Ya tienes cuenta? <a href="/login" class="link">Inicia sesión aquí</a></p>
+      </section>
+    </main>
+
+    <!-- Script para modo oscuro -->
+    <script is:inline>
+      const toggleBtn = document.getElementById('toggle-theme');
+      const body = document.body;
+
+      // Cargar tema desde localStorage
+      const savedTheme = localStorage.getItem('theme');
+      if (savedTheme === 'light') {
+        body.classList.remove('dark-mode');
+        toggleBtn.textContent = '☀️';
+      }
+
+      // Cambiar tema y guardar en localStorage
+      toggleBtn.addEventListener('click', () => {
+        body.classList.toggle('dark-mode');
+        const isDarkMode = body.classList.contains('dark-mode');
+        if (isDarkMode) {
+          toggleBtn.textContent = '🌙';
+          localStorage.setItem('theme', 'dark');
+        } else {
+          toggleBtn.textContent = '☀️';
+          localStorage.setItem('theme', 'light');
+        }
+      });
+    </script>
+
+    <!-- Script para redirección condicional -->
+    <script is:inline>
+      const form = document.getElementById("register-form");
+      const roleSelect = document.getElementById("role-select");
+
+      form.addEventListener("submit", function (event) {
+        const selectedRole = roleSelect.value;
+
+        // Si es profesor, redirigir directamente al dashboard
+        if (selectedRole === "profesor") {
+          form.action = "/dashboard";
+        } else {
+          // Si es alumno, ir al formulario de completar perfil
+          form.action = "/complete-profile";
+        }
+      });
+    </script>
+
+    <style>
+      /* Estilos generales... */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: 'Segoe UI', sans-serif;
+      }
+
+      body {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: linear-gradient(to right bottom, #0f172a, #1e293b);
+        color: white;
+        transition: background 0.4s ease, color 0.4s ease;
+      }
+
+      .light-mode {
+        background: linear-gradient(to right bottom, #e0e0e0, #ffffff);
+        color: #333;
+      }
+
+      .light-mode .glass-container {
+        background: rgba(255, 255, 255, 0.6);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+      }
+
+      .light-mode input,
+      .light-mode select,
+      .light-mode button {
+        background: rgba(255, 255, 255, 0.9);
+        color: #333;
+      }
+
+      .light-mode button {
+        background-color: #0f172a;
+        color: white;
+        border: none;
+      }
+
+      .light-mode .header {
+        background: #ffffffcc;
+        color: #0f172a;
+        border-bottom: 1px solid #ccc;
+      }
+
+      .light-mode .logo {
+        color: #0f172a;
+      }
+
+      .light-mode .theme-toggle {
+        background-color: #0f172a;
+        color: white;
+      }
+
+      /* === Header === */
+      .header {
+        position: fixed;
+        top: 0;
+        width: 100%;
+        z-index: 1000;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background-color: rgba(0, 0, 0, 0.6);
+        backdrop-filter: blur(10px);
+        padding: 1rem 2rem;
+        color: white;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+        transition: all 0.3s ease;
+      }
+
+      .logo {
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: #8bc34a;
+        text-decoration: none;
+        cursor: pointer;
+        transition: color 0.3s ease;
+      }
+
+      .logo:hover {
+        color: #6aab3b;
+      }
+
+      .theme-toggle {
+        background: transparent;
+        border: none;
+        font-size: 1.2rem;
+        cursor: pointer;
+        color: white;
+        transition: transform 0.3s ease;
+      }
+
+      .theme-toggle:hover {
+        transform: rotate(45deg);
+      }
+
+      /* === Contenedor Glassmorphic === */
+      .glass-container {
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 16px;
+        padding: 2rem;
+        max-width: 400px;
+        width: 100%;
+        text-align: center;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        animation: fadeInUp 0.8s ease-out;
+      }
+
+      h2 {
+        font-size: 1.8rem;
+        margin-bottom: 1.5rem;
+        color: #ffffffcc;
+      }
+
+      .auth-form {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+      }
+
+      input[type="email"],
+      input[type="password"],
+      input[type="text"],
+      select {
+        padding: 0.8rem;
+        border: none;
+        border-radius: 8px;
+        background: rgba(255, 255, 255, 0.1);
+        color: white;
+        outline: none;
+        font-size: 1rem;
+        transition: all 0.3s ease;
+      }
+
+      input:focus,
+      select:focus {
+        background: rgba(255, 255, 255, 0.15);
+        box-shadow: 0 0 5px rgba(139, 195, 74, 0.4);
+      }
+
+      button {
+        padding: 0.8rem;
+        background: transparent;
+        color: white;
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        font-weight: bold;
+      }
+
+      button:hover {
+        background-color: #8bc34a;
+        color: #0f172a;
+        border-color: #8bc34a;
+        transform: scale(1.02);
+      }
+
+      .text-center {
+        margin-top: 1rem;
+        font-size: 0.95rem;
+      }
+
+      .link {
+        color: #8bc34a;
+        text-decoration: none;
+        transition: color 0.3s ease;
+      }
+
+      .link:hover {
+        color: #6aab3b;
+      }
+
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @media (max-width: 500px) {
+        .glass-container {
+          padding: 1.5rem;
+          margin: 1rem;
+        }
+
+        h2 {
+          font-size: 1.5rem;
+        }
+
+        input,
+        select,
+        button {
+          font-size: 0.95rem;
+        }
+      }
+    </style>
+  </body>
+</html>

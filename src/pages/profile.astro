@@ -1,0 +1,268 @@
+---
+// src/pages/profile.astro
+---
+
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <title>SEAMI - Mi Perfil</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+
+  <body class="dark-mode">
+
+    <!-- Header -->
+    <header class="header">
+      <a href="/dashboard" class="logo">SEAMI</a>
+      <button id="toggle-theme" class="theme-toggle">🌙</button>
+    </header>
+
+    <!-- Contenido Principal -->
+    <main style="padding: 2rem;">
+      <section class="glass-container">
+        <h2>Mi Perfil</h2>
+
+        <!-- Información del usuario -->
+        <div class="user-info">
+          <div class="info-item">
+            <strong>Nombre:</strong> Juan Pérez
+          </div>
+          <div class="info-item">
+            <strong>Correo:</strong> juan.perez@escuela.edu
+          </div>
+          <div class="info-item">
+            <strong>Semestre:</strong> 5to Semestre
+          </div>
+          <div class="info-item">
+            <strong>Materias Asignadas:</strong>
+            <ul class="subjects-list">
+              <li>Matemáticas Avanzadas - Prof. Carlos</li>
+              <li>Física II - Prof. Laura</li>
+              <li>Química Orgánica - Prof. Luis</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Botones adicionales -->
+        <div class="profile-actions">
+          <button class="action-btn edit">Editar Perfil</button>
+          <button class="action-btn logout">Cerrar Sesión</button>
+        </div>
+      </section>
+    </main>
+
+    <!-- Script para modo oscuro -->
+    <script is:inline>
+      const toggleBtn = document.getElementById('toggle-theme');
+      const body = document.body;
+
+      // Cargar tema desde localStorage
+      const savedTheme = localStorage.getItem('theme');
+      if (savedTheme === 'light') {
+        body.classList.remove('dark-mode');
+        toggleBtn.textContent = '☀️';
+      }
+
+      // Cambiar tema y guardar en localStorage
+      toggleBtn.addEventListener('click', () => {
+        body.classList.toggle('dark-mode');
+        const isDarkMode = body.classList.contains('dark-mode');
+        if (isDarkMode) {
+          toggleBtn.textContent = '🌙';
+          localStorage.setItem('theme', 'dark');
+        } else {
+          toggleBtn.textContent = '☀️';
+          localStorage.setItem('theme', 'light');
+        }
+      });
+    </script>
+
+    <style>
+      /* Reset básico */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: 'Segoe UI', sans-serif;
+      }
+
+      body {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: linear-gradient(to right bottom, #0f172a, #1e293b);
+        color: white;
+        transition: background 0.4s ease, color 0.4s ease;
+      }
+
+      .light-mode {
+        background: linear-gradient(to right bottom, #e0e0e0, #ffffff);
+        color: #333;
+      }
+
+      .light-mode .glass-container {
+        background: rgba(255, 255, 255, 0.6);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+      }
+
+      .light-mode .info-item strong {
+        color: #0f172a;
+      }
+
+      .light-mode .subjects-list li {
+        color: #333;
+      }
+
+      .light-mode .action-btn {
+        background-color: #0f172a;
+        color: white;
+        border: none;
+      }
+
+      .light-mode .action-btn:hover {
+        background-color: #8bc34a;
+        color: #0f172a;
+      }
+
+      /* === Header === */
+      .header {
+        position: fixed;
+        top: 0;
+        width: 100%;
+        z-index: 1000;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background-color: rgba(0, 0, 0, 0.6);
+        backdrop-filter: blur(10px);
+        padding: 1rem 2rem;
+        color: white;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+        transition: all 0.3s ease;
+      }
+
+      .logo {
+        font-size: 1.7rem;
+        font-weight: bold;
+        color: #8bc34a;
+        text-decoration: none;
+        cursor: pointer;
+        transition: color 0.3s ease;
+      }
+
+      .logo:hover {
+        color: #6aab3b;
+      }
+
+      .theme-toggle {
+        background: transparent;
+        border: none;
+        font-size: 1.2rem;
+        cursor: pointer;
+        color: white;
+        transition: transform 0.3s ease;
+      }
+
+      .theme-toggle:hover {
+        transform: rotate(45deg);
+      }
+
+      /* === Contenedor Glassmorphic === */
+      .glass-container {
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 16px;
+        padding: 2rem;
+        max-width: 600px;
+        width: 100%;
+        text-align: center;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        animation: fadeInUp 0.8s ease-out;
+      }
+
+      h2 {
+        font-size: 1.8rem;
+        margin-bottom: 1.5rem;
+        color: #ffffffcc;
+      }
+
+      /* === Información del Usuario === */
+      .user-info {
+        text-align: left;
+        margin-bottom: 1.5rem;
+      }
+
+      .info-item {
+        margin-bottom: 1rem;
+        font-size: 1rem;
+      }
+
+      .subjects-list {
+        list-style: none;
+        padding-left: 0;
+        margin-top: 0.5rem;
+      }
+
+      .subjects-list li {
+        background: rgba(255, 255, 255, 0.05);
+        padding: 0.5rem 1rem;
+        border-radius: 8px;
+        margin-bottom: 0.5rem;
+        transition: background 0.3s ease;
+      }
+
+      .subjects-list li:hover {
+        background: rgba(255, 255, 255, 0.1);
+      }
+
+      /* === Acciones del Perfil === */
+      .profile-actions {
+        display: flex;
+        gap: 1rem;
+        justify-content: center;
+      }
+
+      .action-btn {
+        padding: 0.8rem 1.2rem;
+        background: transparent;
+        color: white;
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      .action-btn:hover {
+        background-color: #8bc34a;
+        color: #0f172a;
+        border-color: #8bc34a;
+        transform: scale(1.02);
+      }
+
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @media (max-width: 600px) {
+        .profile-actions {
+          flex-direction: column;
+          align-items: center;
+        }
+
+        .action-btn {
+          width: 100%;
+          text-align: center;
+        }
+      }
+    </style>
+  </body>
+</html>

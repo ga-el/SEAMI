@@ -1,0 +1,15 @@
+---
+// src/components/VideoCard.astro
+const { title = "Título del Video", teacher = "Profesor Desconocido" } = Astro.props;
+---
+
+<div class="video-card">
+  <div class="thumbnail">
+    <img src="https://via.placeholder.com/320x180?text=Miniatura " alt="Miniatura del video" />
+  </div>
+  <div class="info">
+    <h3>{title}</h3>
+    <p class="teacher">{teacher}</p>
+    <button>Ver Video</button>
+  </div>
+</div>
