@@ -1,8 +1,6 @@
 ---
 // src/pages/dashboard.astro
 ---
-
-\\
 <html lang="es">
   <head>
     <meta charset="UTF-8" />
@@ -15,12 +13,17 @@
     <header class="header">
       <a href="/dashboard" class="logo">SEAMI</a>
 
-      <!-- Botón de perfil con menú desplegable -->
-      <div class="profile-dropdown">
-        <button id="profile-btn" class="profile-icon">👤</button>
-        <div id="dropdown-menu" class="dropdown-content hidden">
-          <a href="/profile" class="dropdown-item">Ver Perfil</a>
-          <a href="/logout" class="dropdown-item">Cerrar Sesión</a>
+      <div class="actions">
+        <!-- Botón para cambiar tema -->
+        <button id="toggle-theme" class="theme-toggle">🌙</button>
+
+        <!-- Botón de perfil con menú desplegable -->
+        <div class="profile-dropdown">
+          <button id="profile-btn" class="profile-icon">👤</button>
+          <div id="dropdown-menu" class="dropdown-content hidden">
+            <a href="/profile" class="dropdown-item">Ver Perfil</a>
+            <a href="/logout" class="dropdown-item">Cerrar Sesión</a>
+          </div>
         </div>
       </div>
     </header>
@@ -33,11 +36,11 @@
     <!-- Contenido principal -->
     <main style="padding: 2rem;">
       <section class="video-grid">
-        <!-- Tarjeta de video estilo YouTube -->
+        <!-- Video 1 -->
         <div class="video-card">
           <a href="#" class="video-thumbnail">
             <img
-              src="/public/img/video card test 1 (portada fisica)"
+              src="/img/video-card-fisica.jpg"
               alt="Miniatura del video"
             />
             <span class="video-duration">44:29</span>
@@ -50,6 +53,7 @@
           </div>
         </div>
 
+        <!-- Video 2 -->
         <div class="video-card">
           <a href="#" class="video-thumbnail">
             <img
@@ -66,6 +70,7 @@
           </div>
         </div>
 
+        <!-- Video 3 -->
         <div class="video-card">
           <a href="#" class="video-thumbnail">
             <img
@@ -82,6 +87,7 @@
           </div>
         </div>
 
+        <!-- Video 4 -->
         <div class="video-card">
           <a href="#" class="video-thumbnail">
             <img
@@ -119,21 +125,20 @@
       });
     </script>
 
-<script is:inline>
-    const profileBtn = document.getElementById('profile-btn');
-    const dropdownMenu = document.getElementById('dropdown-menu');
-  
-    profileBtn.addEventListener('click', () => {
-      dropdownMenu.classList.toggle('hidden');
-    });
-  
-    // Opcional: cerrar menú al hacer clic fuera
-    document.addEventListener('click', function(event) {
-      if (!profileBtn.contains(event.target) && !dropdownMenu.contains(event.target)) {
-        dropdownMenu.classList.add('hidden');
-      }
-    });
-  </script>
+    <script is:inline>
+      const profileBtn = document.getElementById('profile-btn');
+      const dropdownMenu = document.getElementById('dropdown-menu');
+
+      profileBtn.addEventListener('click', () => {
+        dropdownMenu.classList.toggle('hidden');
+      });
+
+      document.addEventListener('click', function (event) {
+        if (!profileBtn.contains(event.target) && !dropdownMenu.contains(event.target)) {
+          dropdownMenu.classList.add('hidden');
+        }
+      });
+    </script>
 
     <!-- Estilos -->
     <style>
@@ -152,9 +157,7 @@
         justify-content: flex-start;
         background: linear-gradient(to right bottom, #0f172a, #1e293b);
         color: white;
-        transition:
-          background 0.4s ease,
-          color 0.4s ease;
+        transition: background 0.4s ease, color 0.4s ease;
       }
 
       .light-mode {
@@ -162,7 +165,6 @@
         color: #333;
       }
 
-      /* === Header === */
       .header {
         position: fixed;
         top: 0;
@@ -174,9 +176,13 @@
         background-color: rgba(0, 0, 0, 0.6);
         backdrop-filter: blur(10px);
         padding: 1rem 2rem;
-        color: white;
         box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
-        transition: all 0.3s ease;
+      }
+
+      .actions {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
       }
 
       .logo {
@@ -192,80 +198,6 @@
         color: #6aab3b;
       }
 
-      .search-container input {
-        border: none;
-        border-radius: 8px;
-        padding: 0.6rem 1rem;
-        outline: none;
-        background: rgba(255, 255, 255, 0.1);
-        color: white;
-        transition: background 0.3s ease;
-      }
-
-      .search-container input:focus {
-        background: rgba(255, 255, 255, 0.15);
-        box-shadow: 0 0 5px rgba(139, 195, 74, 0.4);
-      }
-
-      /* === Botón de Perfil === */
-      .profile-dropdown {
-        position: relative;
-        display: inline-block;
-      }
-
-      .profile-icon {
-        background: transparent;
-        border: none;
-        font-size: 1.2rem;
-        color: white;
-        cursor: pointer;
-        transition: transform 0.3s ease;
-      }
-
-      .profile-icon:hover {
-        transform: scale(1.1);
-      }
-
-      /* === Menú Desplegable === */
-      .dropdown-content {
-        position: absolute;
-        right: 0;
-        top: 2.5rem;
-        background: rgba(255, 255, 255, 0.1);
-        min-width: 150px;
-        border-radius: 8px;
-        overflow: hidden;
-        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
-        backdrop-filter: blur(10px);
-        border: 1px solid rgba(255, 255, 255, 0.15);
-        z-index: 1000;
-        transition:
-          opacity 0.3s ease,
-          visibility 0.3s ease;
-      }
-
-      .dropdown-content.hidden {
-        display: none;
-      }
-
-      .dropdown-content button,
-      .dropdown-content a {
-        color: white;
-        padding: 0.75rem 1rem;
-        text-decoration: none;
-        display: block;
-        width: 100%;
-        text-align: left;
-        background: transparent;
-        border: none;
-        cursor: pointer;
-        transition: background 0.3s ease;
-      }
-
-      .dropdown-content a:hover,
-      .dropdown-content button:hover {
-        background-color: rgba(255, 255, 255, 0.1);
-      }
       .theme-toggle {
         background: transparent;
         border: none;
@@ -277,6 +209,47 @@
 
       .theme-toggle:hover {
         transform: rotate(45deg);
+      }
+
+      .profile-dropdown {
+        position: relative;
+      }
+
+      .profile-icon {
+        background: transparent;
+        border: none;
+        font-size: 1.2rem;
+        color: white;
+        cursor: pointer;
+      }
+
+      .dropdown-content {
+        position: absolute;
+        right: 0;
+        top: 2.5rem;
+        background: rgba(255, 255, 255, 0.1);
+        min-width: 150px;
+        border-radius: 8px;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        z-index: 1000;
+      }
+
+      .dropdown-content.hidden {
+        display: none;
+      }
+
+      .dropdown-content a {
+        color: white;
+        padding: 0.75rem 1rem;
+        text-decoration: none;
+        display: block;
+        transition: background 0.3s ease;
+      }
+
+      .dropdown-content a:hover {
+        background-color: rgba(255, 255, 255, 0.1);
       }
 
       .search-bar {
@@ -316,6 +289,9 @@
         flex-direction: column;
         cursor: pointer;
         transition: transform 0.2s ease;
+        
+        
+        
       }
 
       .video-card:hover {
@@ -334,7 +310,6 @@
         width: 100%;
         height: 100%;
         object-fit: cover;
-        display: block;
       }
 
       .video-duration {
@@ -358,8 +333,6 @@
       .video-title {
         font-size: 1rem;
         font-weight: 600;
-        line-height: 1.2;
-        color: inherit;
       }
 
       .video-meta {
