@@ -1,79 +1,64 @@
 ---
+// src/pages/complete-profile-profesor.astro
 ---
 
 <html lang="es">
   <head>
     <meta charset="UTF-8" />
-    <title>SEAMI - Completa tu Perfil</title>
+    <title>SEAMI - Perfil Profesor</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   </head>
 
   <body class="dark-mode">
+
     <!-- Header -->
     <header class="header">
       <a href="/" class="logo">SEAMI</a>
       <button id="toggle-theme" class="theme-toggle">🌙</button>
-      
     </header>
 
-    <!-- Contenido principal -->
+    <!-- Formulario Completo para Profesores -->
     <main style="padding: 2rem;">
       <section class="glass-container">
-        <h2>Completa tu Perfil de Alumno</h2>
+        <h2>Completa tu Perfil de Profesor</h2>
 
-        <!-- Formulario -->
         <form method="post" action="/dashboard" class="auth-form">
           <!-- Datos personales -->
           <div class="form-row">
-            <input type="text" name="first_name" placeholder="Nombre(s)" required />
-            <input type="text" name="last_name" placeholder="Apellido Paterno" />
+            <input type="text" name="name" placeholder="Nombre completo" required />
+            <input type="date" name="birthdate" placeholder="Fecha de nacimiento" />
           </div>
 
-          <div class="form-row">
-            <input type="text" name="second_last_name" placeholder="Apellido Materno (opcional)" />
-            <input
-              type="number"
-              name="semester"
-              placeholder="Semestre actual (max. 6)"
-              min="1"
-              max=""
-              required
-              class="no-spin"
-            />
-          </div>
-
-          <input type="date" name="birthdate" placeholder="Fecha de nacimiento" class="styled-date" />
-
-          <!-- Materias y Profesores -->
-          <h3>Materias y Profesores Asignados</h3>
-          <p class="subtext">Escribe cada materia con su profesor:</p>
+          <!-- Materias que imparte -->
+          <h3>Tus Materias</h3>
+          <p class="subtext">Ingresa las materias que imparten tus alumnos:</p>
 
           <div class="table-like">
             <input type="text" name="subject1" placeholder="Materia 1" />
-            <input type="text" name="teacher1" placeholder="Profesor 1" />
+            <input type="text" name="student1" placeholder="Estudiante 1" />
           </div>
 
           <div class="table-like">
             <input type="text" name="subject2" placeholder="Materia 2" />
-            <input type="text" name="teacher2" placeholder="Profesor 2" />
+            <input type="text" name="student2" placeholder="Estudiante 2" />
           </div>
 
           <div class="table-like">
             <input type="text" name="subject3" placeholder="Materia 3" />
-            <input type="text" name="teacher3" placeholder="Profesor 3" />
+            <input type="text" name="student3" placeholder="Estudiante 3" />
           </div>
 
           <div class="table-like">
             <input type="text" name="subject4" placeholder="Materia 4" />
-            <input type="text" name="teacher4" placeholder="Profesor 4" />
+            <input type="text" name="student4" placeholder="Estudiante 4" />
           </div>
 
           <div class="table-like">
             <input type="text" name="subject5" placeholder="Materia 5" />
-            <input type="text" name="teacher5" placeholder="Profesor 5" />
+            <input type="text" name="student5" placeholder="Estudiante 5" />
           </div>
 
-          <!-- Botón de registro -->
+          <!-- Botón Finalizar Registro -->
           <button type="submit">Finalizar Registro</button>
         </form>
       </section>
@@ -84,21 +69,29 @@
       const toggleBtn = document.getElementById('toggle-theme');
       const body = document.body;
 
+      // Cargar tema desde localStorage
       const savedTheme = localStorage.getItem('theme');
       if (savedTheme === 'light') {
         body.classList.remove('dark-mode');
         toggleBtn.textContent = '☀️';
       }
 
+      // Cambiar tema y guardar en localStorage
       toggleBtn.addEventListener('click', () => {
         body.classList.toggle('dark-mode');
         const isDarkMode = body.classList.contains('dark-mode');
-        toggleBtn.textContent = isDarkMode ? '🌙' : '☀️';
-        localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
+        if (isDarkMode) {
+          toggleBtn.textContent = '🌙';
+          localStorage.setItem('theme', 'dark');
+        } else {
+          toggleBtn.textContent = '☀️';
+          localStorage.setItem('theme', 'light');
+        }
       });
     </script>
 
     <style>
+      /* Reset básico */
       * {
         margin: 0;
         padding: 0;
@@ -111,7 +104,7 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        background: linear-gradient(to right bottom, #0f172a, #50315c);
+        background: linear-gradient(to right bottom, #0f172a, #50315c); 
         color: white;
         transition: background 0.4s ease, color 0.4s ease;
       }
@@ -154,9 +147,10 @@
         color: white;
       }
 
+      /* === Header === */
       .header {
         position: fixed;
-        top: 0%;
+        top: 0;
         width: 100%;
         z-index: 1000;
         display: flex;
@@ -167,13 +161,20 @@
         padding: 1rem 2rem;
         color: white;
         box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+        transition: all 0.3s ease;
       }
 
       .logo {
-        font-size: 1.7rem;
+        font-size: 1.7xrem;
         font-weight: bold;
         color: #8bc34a;
         text-decoration: none;
+        cursor: pointer;
+        transition: color 0.3s ease;
+      }
+
+      .logo:hover {
+        color: #6aab3b;
       }
 
       .theme-toggle {
@@ -182,8 +183,14 @@
         font-size: 1.2rem;
         cursor: pointer;
         color: white;
+        transition: transform 0.3s ease;
       }
 
+      .theme-toggle:hover {
+        transform: rotate(45deg);
+      }
+
+      /* === Contenedor Glassmorphic === */
       .glass-container {
         background: rgba(255, 255, 255, 0.05);
         border-radius: 16px;
@@ -194,6 +201,7 @@
         box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
         backdrop-filter: blur(10px);
         border: 1px solid rgba(255, 255, 255, 0.1);
+        animation: fadeInUp 0.8s ease-out;
       }
 
       h2 {
@@ -223,8 +231,7 @@
         margin-bottom: 1.5rem;
       }
 
-      .form-row input,
-      .styled-date {
+      .form-row input {
         flex: 1;
         padding: 0.8rem;
         border: none;
@@ -236,12 +243,12 @@
         transition: background 0.3s ease;
       }
 
-      .form-row input:focus,
-      .styled-date:focus {
+      .form-row input:focus {
         background: rgba(255, 255, 255, 0.15);
         box-shadow: 0 0 5px rgba(139, 195, 74, 0.4);
       }
 
+      /* === Diseño de tabla personalizada === */
       .table-like {
         display: grid;
         grid-template-columns: 1fr 1fr;
@@ -256,6 +263,7 @@
         background: rgba(255, 255, 255, 0.1);
         color: white;
         font-size: 1rem;
+        transition: background 0.3s ease;
       }
 
       .table-like input:focus {
@@ -263,6 +271,24 @@
         box-shadow: 0 0 5px rgba(139, 195, 74, 0.4);
       }
 
+      @media (max-width: 600px) {
+        .form-row,
+        .table-like {
+          grid-template-columns: 1fr;
+          flex-direction: column;
+        }
+
+        .table-like {
+          display: flex;
+        }
+
+        .form-row input,
+        .table-like input {
+          font-size: 1rem;
+        }
+      }
+
+      /* === Botón finalizar === */
       .auth-form button {
         padding: 0.8rem;
         background: transparent;
@@ -281,30 +307,15 @@
         transform: scale(1.02);
       }
 
-      @media (max-width: 600px) {
-        .form-row,
-        .table-like {
-          flex-direction: column;
-          display: flex;
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
         }
-      }
-
-      /* Eliminar flechas de los inputs tipo number */
-      input[type='number'].no-spin::-webkit-outer-spin-button,
-      input[type='number'].no-spin::-webkit-inner-spin-button {
-        -webkit-appearance: none;
-        margin: 0;
-      }
-
-      input[type='number'].no-spin {
-        -moz-appearance: textfield;
-      }
-
-      /* Estilo para input de fecha */
-      .styled-date {
-        display: block;
-        width: 100%;
-        margin: 1rem 0;
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
       }
     </style>
   </body>

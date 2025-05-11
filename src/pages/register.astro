@@ -10,7 +10,6 @@
   </head>
 
   <body class="dark-mode">
-
     <!-- Header -->
     <header class="header">
       <a href="/" class="logo">SEAMI</a>
@@ -21,11 +20,31 @@
     <main style="padding: 2rem; color: white;">
       <section class="glass-container">
         <h2>Registrarse</h2>
-        <form method="post" action="/complete-profile" class="auth-form" id="register-form">
+        <form
+          method="post"
+          action="/complete-profile"
+          class="auth-form"
+          id="register-form"
+        >
           <!-- Campos obligatorios -->
-          <input type="email" name="email" placeholder="Correo electrónico" required />
-          <input type="password" name="password" placeholder="Contraseña" required />
-          <input type="text" name="school_key" placeholder="Clave escolar" required />
+          <input
+            type="email"
+            name="email"
+            placeholder="Correo electrónico"
+            required
+          />
+          <input
+            type="password"
+            name="password"
+            placeholder="Contraseña"
+            required
+          />
+          <input
+            type="text"
+            name="school_key"
+            placeholder="Clave escolar"
+            required
+          />
 
           <!-- Selección de rol -->
           <select name="role" id="role-select">
@@ -38,32 +57,35 @@
         </form>
 
         <!-- Enlace a login -->
-        <p class="text-center">¿Ya tienes cuenta? <a href="/login" class="link">Inicia sesión aquí</a></p>
+        <p class="text-center">
+          ¿Ya tienes cuenta? <a href="/login" class="link"
+            >Inicia sesión aquí</a>
+        </p>
       </section>
     </main>
 
     <!-- Script para modo oscuro -->
     <script is:inline>
-      const toggleBtn = document.getElementById('toggle-theme');
+      const toggleBtn = document.getElementById("toggle-theme");
       const body = document.body;
 
       // Cargar tema desde localStorage
-      const savedTheme = localStorage.getItem('theme');
-      if (savedTheme === 'light') {
-        body.classList.remove('dark-mode');
-        toggleBtn.textContent = '☀️';
+      const savedTheme = localStorage.getItem("theme");
+      if (savedTheme === "light") {
+        body.classList.remove("dark-mode");
+        toggleBtn.textContent = "☀️";
       }
 
       // Cambiar tema y guardar en localStorage
-      toggleBtn.addEventListener('click', () => {
-        body.classList.toggle('dark-mode');
-        const isDarkMode = body.classList.contains('dark-mode');
+      toggleBtn.addEventListener("click", () => {
+        body.classList.toggle("dark-mode");
+        const isDarkMode = body.classList.contains("dark-mode");
         if (isDarkMode) {
-          toggleBtn.textContent = '🌙';
-          localStorage.setItem('theme', 'dark');
+          toggleBtn.textContent = "🌙";
+          localStorage.setItem("theme", "dark");
         } else {
-          toggleBtn.textContent = '☀️';
-          localStorage.setItem('theme', 'light');
+          toggleBtn.textContent = "☀️";
+          localStorage.setItem("theme", "light");
         }
       });
     </script>
@@ -74,14 +96,14 @@
       const roleSelect = document.getElementById("role-select");
 
       form.addEventListener("submit", function (event) {
+        event.preventDefault(); // Evita el envío real del formulario por ahora
+
         const selectedRole = roleSelect.value;
 
-        // Si es profesor, redirigir directamente al dashboard
-        if (selectedRole === "profesor") {
-          form.action = "/dashboard";
-        } else {
-          // Si es alumno, ir al formulario de completar perfil
-          form.action = "/complete-profile";
+        if (selectedRole === "alumno") {
+          window.location.href = "/complete-profile";
+        } else if (selectedRole === "profesor") {
+          window.location.href = "/complete-profile-profesor";
         }
       });
     </script>
@@ -92,7 +114,7 @@
         margin: 0;
         padding: 0;
         box-sizing: border-box;
-        font-family: 'Segoe UI', sans-serif;
+        font-family: "Segoe UI", sans-serif;
       }
 
       body {
@@ -102,7 +124,9 @@
         justify-content: center;
         background: linear-gradient(to right bottom, #0f172a, #50315c);
         color: white;
-        transition: background 0.4s ease, color 0.4s ease;
+        transition:
+          background 0.4s ease,
+          color 0.4s ease;
       }
 
       .light-mode {
@@ -161,7 +185,7 @@
       }
 
       .logo {
-        font-size: 1.7rem;
+        font-size: 1.9rem;
         font-weight: bold;
         color: #8bc34a;
         text-decoration: none;
