@@ -17,7 +17,7 @@
     </header>
 
     <!-- Formulario Registro Inicial -->
-    <main style="padding: 2rem; color: white;">
+    <main style="padding: 7rem; ">
       <section class="glass-container">
         <h2>Registrarse</h2>
         <form
@@ -114,7 +114,7 @@
         margin: 0;
         padding: 0;
         box-sizing: border-box;
-        font-family: "Segoe UI", sans-serif;
+        font-family: 'Segoe UI', sans-serif;
       }
 
       body {
@@ -122,11 +122,10 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        background: linear-gradient(to right bottom, #0f172a, #50315c);
+        /* background: linear-gradient(to right bottom, #0f172a, #1e293b);(posible siguiente tema)*/
+        background: linear-gradient(to right bottom, #0f172a, #50315c); 
         color: white;
-        transition:
-          background 0.4s ease,
-          color 0.4s ease;
+        transition: background 0.4s ease, color 0.4s ease;
       }
 
       .light-mode {
@@ -136,6 +135,7 @@
 
       .light-mode .glass-container {
         background: rgba(255, 255, 255, 0.6);
+        backdrop-filter: blur(10px);
         border: 1px solid rgba(255, 255, 255, 0.3);
       }
 
@@ -167,6 +167,8 @@
         color: white;
       }
 
+     
+
       /* === Header === */
       .header {
         position: fixed;
@@ -185,8 +187,9 @@
       }
 
       .logo {
-        font-size: 1.9rem;
+        font-size: 1.7rem;
         font-weight: bold;
+        padding: 1px;
         color: #8bc34a;
         text-decoration: none;
         cursor: pointer;
@@ -194,7 +197,7 @@
       }
 
       .logo:hover {
-        color: #6aab3b;
+        color: #557c29;
       }
 
       .theme-toggle {
@@ -209,6 +212,7 @@
       .theme-toggle:hover {
         transform: rotate(45deg);
       }
+
 
       /* === Contenedor Glassmorphic === */
       .glass-container {

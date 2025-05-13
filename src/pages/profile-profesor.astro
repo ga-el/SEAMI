@@ -1,8 +1,6 @@
 ---
 // src/pages/profile-profesor.astro
 
-
-
 const teacher = {
   name: "Profesor Mario Gómez",
   email: "mario.gomez@escuela.edu",
@@ -42,25 +40,27 @@ const teacher = {
         <a href="/editar-perfil" class="edit-btn">Editar perfil </a>
         <a href="/editar-perfil" class="edit-btn"> subir videos</a>
       </section>
-     
+
       <!-- Mis Videos -->
       <section class="videos-section">
         <h2>Mis Videos</h2>
         <div class="videos-grid">
-          {teacher.videos.map(video => (
-            <div class="video-card">
-              <iframe
-                width="100%"
-                height="200"
-                src={video.url}
-                title={video.title}
-                frameborder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowfullscreen
-              ></iframe>
-              <p>{video.title}</p>
-            </div>
-          ))}
+          {
+            teacher.videos.map((video) => (
+              <div class="video-card">
+                <iframe
+                  width="100%"
+                  height="200"
+                  src={video.url}
+                  title={video.title}
+                  frameborder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowfullscreen
+                />
+                <p>{video.title}</p>
+              </div>
+            ))
+          }
         </div>
       </section>
     </main>
@@ -97,15 +97,27 @@ const teacher = {
         background-color: rgba(0, 0, 0, 0.6);
         backdrop-filter: blur(10px);
         padding: 1rem 2rem;
-        color: white;
+        transition: all 0.3s ease;
         box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
       }
 
+      .actions {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+      }
+
       .logo {
-        font-size: 1.9rem;
+        font-size: 1.7rem;
         font-weight: bold;
         color: #8bc34a;
         text-decoration: none;
+        cursor: pointer;
+        transition: color 0.3s ease;
+      }
+
+      .logo:hover {
+        color: #6aab3b;
       }
 
       .theme-toggle {
@@ -163,8 +175,6 @@ const teacher = {
         transition: transform 0.2s ease;
         padding: 15px;
       }
-
-      
 
       .edit-btn:hover {
         transform: scale(1.05);

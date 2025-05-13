@@ -10,26 +10,34 @@
   </head>
 
   <body class="dark-mode">
-
     <!-- Header -->
     <header class="header">
       <a href="/" class="logo">SEAMI</a>
       <button id="toggle-theme" class="theme-toggle">🌙</button>
     </header>
 
-    <!-- Formulario Completo para Profesores -->
-    <main style="padding: 2rem;">
+    <!-- formulario  -->
+    <main style="padding: 5rem;">
       <section class="glass-container">
         <h2>Completa tu Perfil de Profesor</h2>
 
         <form method="post" action="/dashboard" class="auth-form">
-          <!-- Datos personales -->
+          <!-- datos personales -->
           <div class="form-row">
-            <input type="text" name="name" placeholder="Nombre completo" required />
-            <input type="date" name="birthdate" placeholder="Fecha de nacimiento" />
+            <input
+              type="text"
+              name="name"
+              placeholder="Nombre completo"
+              required
+            />
+            <input
+              type="date"
+              name="birthdate"
+              placeholder="Fecha de nacimiento"
+            />
           </div>
 
-          <!-- Materias que imparte -->
+          <!-- las materias -->
           <h3>Tus Materias</h3>
           <p class="subtext">Ingresa las materias que imparten tus alumnos:</p>
 
@@ -58,45 +66,42 @@
             <input type="text" name="student5" placeholder="Estudiante 5" />
           </div>
 
-          <!-- Botón Finalizar Registro -->
+          <!-- boton Finalizar -->
           <button type="submit">Finalizar Registro</button>
         </form>
       </section>
     </main>
 
-    <!-- Script para modo oscuro -->
+    <!-- script  modo oscuro -->
     <script is:inline>
-      const toggleBtn = document.getElementById('toggle-theme');
+      const toggleBtn = document.getElementById("toggle-theme");
       const body = document.body;
 
-      // Cargar tema desde localStorage
-      const savedTheme = localStorage.getItem('theme');
-      if (savedTheme === 'light') {
-        body.classList.remove('dark-mode');
-        toggleBtn.textContent = '☀️';
+      const savedTheme = localStorage.getItem("theme");
+      if (savedTheme === "light") {
+        body.classList.remove("dark-mode");
+        toggleBtn.textContent = "☀️";
       }
 
-      // Cambiar tema y guardar en localStorage
-      toggleBtn.addEventListener('click', () => {
-        body.classList.toggle('dark-mode');
-        const isDarkMode = body.classList.contains('dark-mode');
+      toggleBtn.addEventListener("click", () => {
+        body.classList.toggle("dark-mode");
+        const isDarkMode = body.classList.contains("dark-mode");
         if (isDarkMode) {
-          toggleBtn.textContent = '🌙';
-          localStorage.setItem('theme', 'dark');
+          toggleBtn.textContent = "🌙";
+          localStorage.setItem("theme", "dark");
         } else {
-          toggleBtn.textContent = '☀️';
-          localStorage.setItem('theme', 'light');
+          toggleBtn.textContent = "☀️";
+          localStorage.setItem("theme", "light");
         }
       });
     </script>
 
     <style>
-      /* Reset básico */
       * {
         margin: 0;
         padding: 0;
         box-sizing: border-box;
-        font-family: 'Segoe UI', sans-serif;
+        font-family: "Segoe UI", sans-serif;
       }
 
       body {
@@ -104,9 +109,11 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        background: linear-gradient(to right bottom, #0f172a, #50315c); 
+        background: linear-gradient(to right bottom, #0f172a, #50315c);
         color: white;
-        transition: background 0.4s ease, color 0.4s ease;
+        transition:
+          background 0.4s ease,
+          color 0.4s ease;
       }
 
       .light-mode {
@@ -146,9 +153,8 @@
         background-color: #0f172a;
         color: white;
       }
-
-      /* === Header === */
-      .header {
+  /* === Header === */
+  .header {
         position: fixed;
         top: 0;
         width: 100%;
@@ -165,7 +171,7 @@
       }
 
       .logo {
-        font-size: 1.7xrem;
+        font-size: 1.7rem;
         font-weight: bold;
         color: #8bc34a;
         text-decoration: none;
@@ -174,7 +180,7 @@
       }
 
       .logo:hover {
-        color: #6aab3b;
+        color: #6c757d;
       }
 
       .theme-toggle {
@@ -190,7 +196,6 @@
         transform: rotate(45deg);
       }
 
-      /* === Contenedor Glassmorphic === */
       .glass-container {
         background: rgba(255, 255, 255, 0.05);
         border-radius: 16px;
@@ -232,6 +237,7 @@
       }
 
       .form-row input {
+       
         flex: 1;
         padding: 0.8rem;
         border: none;
@@ -244,11 +250,12 @@
       }
 
       .form-row input:focus {
+        
         background: rgba(255, 255, 255, 0.15);
         box-shadow: 0 0 5px rgba(139, 195, 74, 0.4);
       }
 
-      /* === Diseño de tabla personalizada === */
+      /* === diseño tabla === */
       .table-like {
         display: grid;
         grid-template-columns: 1fr 1fr;

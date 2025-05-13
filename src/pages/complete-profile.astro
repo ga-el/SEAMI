@@ -1,4 +1,5 @@
 ---
+// src/pages/complete-profile.astro
 ---
 
 <html lang="es">
@@ -13,11 +14,9 @@
     <header class="header">
       <a href="/" class="logo">SEAMI</a>
       <button id="toggle-theme" class="theme-toggle">🌙</button>
-      
     </header>
 
-    <!-- Contenido principal -->
-    <main style="padding: 2rem;">
+    <main style="padding: 5rem;">
       <section class="glass-container">
         <h2>Completa tu Perfil de Alumno</h2>
 
@@ -25,12 +24,25 @@
         <form method="post" action="/dashboard" class="auth-form">
           <!-- Datos personales -->
           <div class="form-row">
-            <input type="text" name="first_name" placeholder="Nombre(s)" required />
-            <input type="text" name="last_name" placeholder="Apellido Paterno" />
+            <input
+              type="text"
+              name="first_name"
+              placeholder="Nombre(s)"
+              required
+            />
+            <input
+              type="text"
+              name="last_name"
+              placeholder="Apellido Paterno"
+            />
           </div>
 
           <div class="form-row">
-            <input type="text" name="second_last_name" placeholder="Apellido Materno (opcional)" />
+            <input
+              type="text"
+              name="second_last_name"
+              placeholder="Apellido Materno (opcional)"
+            />
             <input
               type="number"
               name="semester"
@@ -42,9 +54,14 @@
             />
           </div>
 
-          <input type="date" name="birthdate" placeholder="Fecha de nacimiento" class="styled-date" />
+          <input
+            type="date"
+            name="birthdate"
+            placeholder="Fecha de nacimiento"
+            class="styled-date"
+          />
 
-          <!-- Materias y Profesores -->
+          <!-- Materias y Profes -->
           <h3>Materias y Profesores Asignados</h3>
           <p class="subtext">Escribe cada materia con su profesor:</p>
 
@@ -81,20 +98,20 @@
 
     <!-- Script para modo oscuro -->
     <script is:inline>
-      const toggleBtn = document.getElementById('toggle-theme');
+      const toggleBtn = document.getElementById("toggle-theme");
       const body = document.body;
 
-      const savedTheme = localStorage.getItem('theme');
-      if (savedTheme === 'light') {
-        body.classList.remove('dark-mode');
-        toggleBtn.textContent = '☀️';
+      const savedTheme = localStorage.getItem("theme");
+      if (savedTheme === "light") {
+        body.classList.remove("dark-mode");
+        toggleBtn.textContent = "☀️";
       }
 
-      toggleBtn.addEventListener('click', () => {
-        body.classList.toggle('dark-mode');
-        const isDarkMode = body.classList.contains('dark-mode');
-        toggleBtn.textContent = isDarkMode ? '🌙' : '☀️';
-        localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
+      toggleBtn.addEventListener("click", () => {
+        body.classList.toggle("dark-mode");
+        const isDarkMode = body.classList.contains("dark-mode");
+        toggleBtn.textContent = isDarkMode ? "🌙" : "☀️";
+        localStorage.setItem("theme", isDarkMode ? "dark" : "light");
       });
     </script>
 
@@ -103,7 +120,7 @@
         margin: 0;
         padding: 0;
         box-sizing: border-box;
-        font-family: 'Segoe UI', sans-serif;
+        font-family: "Segoe UI", sans-serif;
       }
 
       body {
@@ -113,7 +130,9 @@
         justify-content: center;
         background: linear-gradient(to right bottom, #0f172a, #50315c);
         color: white;
-        transition: background 0.4s ease, color 0.4s ease;
+        transition:
+          background 0.4s ease,
+          color 0.4s ease;
       }
 
       .light-mode {
@@ -154,9 +173,10 @@
         color: white;
       }
 
+      /* === Header === */
       .header {
         position: fixed;
-        top: 0%;
+        top: 0;
         width: 100%;
         z-index: 1000;
         display: flex;
@@ -167,6 +187,13 @@
         padding: 1rem 2rem;
         color: white;
         box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+        transition: all 0.3s ease;
+      }
+      
+      .actions {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
       }
 
       .logo {
@@ -174,6 +201,12 @@
         font-weight: bold;
         color: #8bc34a;
         text-decoration: none;
+        cursor: pointer;
+        transition: color 0.3s ease;
+      }
+
+      .logo:hover {
+        color: #557c29;
       }
 
       .theme-toggle {
@@ -182,6 +215,11 @@
         font-size: 1.2rem;
         cursor: pointer;
         color: white;
+        transition: transform 0.3s ease;
+      }
+
+      .theme-toggle:hover {
+        transform: rotate(45deg);
       }
 
       .glass-container {
@@ -290,13 +328,13 @@
       }
 
       /* Eliminar flechas de los inputs tipo number */
-      input[type='number'].no-spin::-webkit-outer-spin-button,
-      input[type='number'].no-spin::-webkit-inner-spin-button {
+      input[type="number"].no-spin::-webkit-outer-spin-button,
+      input[type="number"].no-spin::-webkit-inner-spin-button {
         -webkit-appearance: none;
         margin: 0;
       }
 
-      input[type='number'].no-spin {
+      input[type="number"].no-spin {
         -moz-appearance: textfield;
       }
 
