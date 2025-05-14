@@ -116,234 +116,264 @@
     </script>
 
     <style>
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-        font-family: "Segoe UI", sans-serif;
-      }
-
-      body {
-        min-height: 100vh;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        background: linear-gradient(to right bottom, #0f172a, #50315c);
-        color: white;
-        transition:
-          background 0.4s ease,
-          color 0.4s ease;
-      }
-
-      .light-mode {
-        background: linear-gradient(to right bottom, #e0e0e0, #ffffff);
-        color: #333;
-      }
-
-      .light-mode .glass-container {
-        background: rgba(255, 255, 255, 0.6);
-        border: 1px solid rgba(255, 255, 255, 0.3);
-      }
-
-      .light-mode input,
-      .light-mode select,
-      .light-mode button {
-        background: rgba(255, 255, 255, 0.9);
-        color: #333;
-      }
-
-      .light-mode button {
-        background-color: #0f172a;
-        color: white;
-        border: none;
-      }
-
-      .light-mode .header {
-        background: #ffffffcc;
-        color: #0f172a;
-        border-bottom: 1px solid #ccc;
-      }
-
-      .light-mode .logo {
-        color: #0f172a;
-      }
-
-      .light-mode .theme-toggle {
-        background-color: #0f172a;
-        color: white;
-      }
-
-      /* === Header === */
-      .header {
-        position: fixed;
-        top: 0;
-        width: 100%;
-        z-index: 1000;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        background-color: rgba(0, 0, 0, 0.6);
-        backdrop-filter: blur(10px);
-        padding: 1rem 2rem;
-        color: white;
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
-        transition: all 0.3s ease;
-      }
       
-      .actions {
-        display: flex;
-        align-items: center;
-        gap: 1rem;
-      }
+  /* Reset básico */
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Segoe UI", sans-serif;
+  }
 
-      .logo {
-        font-size: 1.7rem;
-        font-weight: bold;
-        color: #8bc34a;
-        text-decoration: none;
-        cursor: pointer;
-        transition: color 0.3s ease;
-      }
+  body {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(to right bottom, #0f172a, #50315c);
+    color: white;
+    transition: background 0.4s ease, color 0.4s ease;
+  }
 
-      .logo:hover {
-        color: #557c29;
-      }
+  .light-mode {
+    background: linear-gradient(to right bottom, #e0e0e0, #ffffff);
+    color: #333;
+  }
 
-      .theme-toggle {
-        background: transparent;
-        border: none;
-        font-size: 1.2rem;
-        cursor: pointer;
-        color: white;
-        transition: transform 0.3s ease;
-      }
+  .light-mode .glass-container {
+    background: rgba(255, 255, 255, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+  }
 
-      .theme-toggle:hover {
-        transform: rotate(45deg);
-      }
+  .light-mode input,
+  .light-mode select,
+  .light-mode button {
+    background: rgba(255, 255, 255, 0.9);
+    color: #333;
+  }
 
-      .glass-container {
-        background: rgba(255, 255, 255, 0.05);
-        border-radius: 16px;
-        padding: 2rem;
-        max-width: 600px;
-        width: 100%;
-        text-align: center;
-        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-        backdrop-filter: blur(10px);
-        border: 1px solid rgba(255, 255, 255, 0.1);
-      }
+  .light-mode button {
+    background-color: #0f172a;
+    color: white;
+    border: none;
+  }
 
-      h2 {
-        font-size: 1.8rem;
-        margin-bottom: 1.5rem;
-        color: #ffffffcc;
-      }
+  .light-mode .header {
+    background: #ffffffcc;
+    color: #0f172a;
+    border-bottom: 1px solid #ccc;
+  }
 
-      h3 {
-        font-size: 1.2rem;
-        margin-top: 1.5rem;
-        margin-bottom: 0.5rem;
-        color: #ffffffcc;
-        text-align: left;
-      }
+  .light-mode .logo {
+    color: #0f172a;
+  }
 
-      .subtext {
-        text-align: left;
-        font-size: 0.9rem;
-        margin-bottom: 1rem;
-        color: #cccccc;
-      }
+  .light-mode .theme-toggle {
+    background-color: #0f172a;
+    color: white;
+  }
 
-      .form-row {
-        display: flex;
-        gap: 1rem;
-        margin-bottom: 1.5rem;
-      }
+  /* === Header === */
+  .header {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(10px);
+    padding: 1.5rem 2rem;
+    color: white;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+    transition: all 0.3s ease;
+  }
 
-      .form-row input,
-      .styled-date {
-        flex: 1;
-        padding: 0.8rem;
-        border: none;
-        border-radius: 8px;
-        background: rgba(255, 255, 255, 0.1);
-        color: white;
-        outline: none;
-        font-size: 1rem;
-        transition: background 0.3s ease;
-      }
+  .logo {
+    font-size: 1.7rem;
+    font-weight: bold;
+    color: #8bc34a;
+    text-decoration: none;
+    cursor: pointer;
+    transition: color 0.3s ease;
+  }
 
-      .form-row input:focus,
-      .styled-date:focus {
-        background: rgba(255, 255, 255, 0.15);
-        box-shadow: 0 0 5px rgba(139, 195, 74, 0.4);
-      }
+  .logo:hover {
+    color: #6aab3b;
+  }
 
-      .table-like {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 1rem;
-        margin-bottom: 1rem;
-      }
+  .theme-toggle {
+    background: transparent;
+    border: none;
+    font-size: 1.2rem;
+    cursor: pointer;
+    color: white;
+    transition: transform 0.3s ease;
+  }
 
-      .table-like input {
-        padding: 0.8rem;
-        border: none;
-        border-radius: 8px;
-        background: rgba(255, 255, 255, 0.1);
-        color: white;
-        font-size: 1rem;
-      }
+  .theme-toggle:hover {
+    transform: rotate(45deg);
+  }
 
-      .table-like input:focus {
-        background: rgba(255, 255, 255, 0.15);
-        box-shadow: 0 0 5px rgba(139, 195, 74, 0.4);
-      }
+  /* === Contenedor Glassmorphic === */
+  .glass-container {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 16px;
+    padding: 2rem;
+    max-width: 600px;
+    width: 100%;
+    text-align: center;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    animation: fadeInUp 1s ease-out forwards;
+  }
 
-      .auth-form button {
-        padding: 0.8rem;
-        background: transparent;
-        color: white;
-        border: 1px solid rgba(255, 255, 255, 0.3);
-        border-radius: 8px;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        font-weight: bold;
-      }
+  h2 {
+    font-size: 1.8rem;
+    margin-bottom: 1.5rem;
+    color: #ffffffcc;
+  }
 
-      .auth-form button:hover {
-        background-color: #8bc34a;
-        color: #0f172a;
-        border-color: #8bc34a;
-        transform: scale(1.02);
-      }
+  h3 {
+    font-size: 1.2rem;
+    margin-top: 1.5rem;
+    margin-bottom: 0.5rem;
+    color: #ffffffcc;
+    text-align: left;
+  }
 
-      @media (max-width: 600px) {
-        .form-row,
-        .table-like {
-          flex-direction: column;
-          display: flex;
-        }
-      }
+  .subtext {
+    text-align: left;
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+    color: #cccccc;
+  }
 
-      /* Eliminar flechas de los inputs tipo number */
-      input[type="number"].no-spin::-webkit-outer-spin-button,
-      input[type="number"].no-spin::-webkit-inner-spin-button {
-        -webkit-appearance: none;
-        margin: 0;
-      }
+  .form-row {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+  }
 
-      input[type="number"].no-spin {
-        -moz-appearance: textfield;
-      }
+  .form-row input,
+  .styled-date {
+    flex: 1;
+    padding: 0.8rem;
+    border: none;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    outline: none;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+  }
 
-      /* Estilo para input de fecha */
-      .styled-date {
-        display: block;
-        width: 100%;
-        margin: 1rem 0;
-      }
+  .form-row input:focus,
+  .styled-date:focus {
+    background: rgba(255, 255, 255, 0.15);
+    box-shadow: 0 0 5px rgba(139, 195, 74, 0.4);
+    transform: scale(1.01);
+  }
+
+  .table-like {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .table-like input {
+    padding: 0.8rem;
+    border: none;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+  }
+
+  .table-like input:focus {
+    background: rgba(255, 255, 255, 0.15);
+    box-shadow: 0 0 5px rgba(139, 195, 74, 0.4);
+    transform: scale(1.01);
+  }
+
+  .auth-form button {
+    padding: 0.8rem;
+    background: transparent;
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: bold;
+  }
+
+  .auth-form button:hover {
+    background-color: #8bc34a;
+    color: #0f172a;
+    border-color: #8bc34a;
+    transform: scale(1.02);
+  }
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .animate-fade-in {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInUp 0.8s ease-out forwards;
+  }
+
+  /* === Estilo para inputs tipo date === */
+  .styled-date {
+    display: block;
+    width: 100%;
+    margin: 1rem 0;
+  }
+
+  /* === Eliminar flechas de los number inputs === */
+  input[type="number"].no-spin::-webkit-outer-spin-button,
+  input[type="number"].no-spin::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  input[type="number"].no-spin {
+    -moz-appearance: textfield; /* Firefox */
+  }
+
+  @media (max-width: 600px) {
+    .form-row,
+    .table-like {
+      flex-direction: column;
+      display: flex;
+    }
+
+    .animate-fade-in {
+      animation: fadeInUp 0.6s ease-out forwards;
+    }
+
+    .table-like {
+      display: flex;
+    }
+
+    .form-row input,
+    .table-like input {
+      font-size: 1rem;
+    }
+  }
+
     </style>
   </body>
 </html>

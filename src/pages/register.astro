@@ -13,7 +13,12 @@
     <!-- Header -->
     <header class="header">
       <a href="/" class="logo">SEAMI</a>
-      <button id="toggle-theme" class="theme-toggle">🌙</button>
+
+      <div class="actions">
+        <!-- Botón para cambiar tema -->
+        <button id="toggle-theme" class="theme-toggle">🌙</button>
+
+        
     </header>
 
     <!-- Formulario Registro Inicial -->
@@ -117,15 +122,33 @@
         font-family: 'Segoe UI', sans-serif;
       }
 
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @media (max-width: 600px) {
+        .glass-container {
+          padding: 1.5rem;
+          margin: 1rem;
+        }
+      }
+
       body {
         min-height: 100vh;
         display: flex;
         align-items: center;
         justify-content: center;
-        /* background: linear-gradient(to right bottom, #0f172a, #1e293b);(posible siguiente tema)*/
         background: linear-gradient(to right bottom, #0f172a, #50315c); 
         color: white;
         transition: background 0.4s ease, color 0.4s ease;
+        animation: fadeIn 0.8s ease-out;
       }
 
       .light-mode {
@@ -167,8 +190,6 @@
         color: white;
       }
 
-     
-
       /* === Header === */
       .header {
         position: fixed;
@@ -184,6 +205,13 @@
         color: white;
         box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
         transition: all 0.3s ease;
+        animation: slideIn 0.8s ease-out;
+      }
+
+      .actions {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
       }
 
       .logo {
@@ -213,6 +241,46 @@
         transform: rotate(45deg);
       }
 
+      .profile-dropdown {
+        position: relative;
+      }
+
+      .profile-icon {
+        background: transparent;
+        border: none;
+        font-size: 1.2rem;
+        color: white;
+        cursor: pointer;
+      }
+
+      .dropdown-content {
+        position: absolute;
+        right: 0;
+        top: 2.5rem;
+        background: rgba(255, 255, 255, 0.1);
+        min-width: 150px;
+        border-radius: 8px;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        z-index: 1000;
+      }
+
+      .dropdown-content.hidden {
+        display: none;
+      }
+
+      .dropdown-content a {
+        color: white;
+        padding: 0.75rem 1rem;
+        text-decoration: none;
+        display: block;
+        transition: background 0.3s ease;
+      }
+
+      .dropdown-content a:hover {
+        background-color: rgba(255, 255, 255, 0.1);
+      }
 
       /* === Contenedor Glassmorphic === */
       .glass-container {

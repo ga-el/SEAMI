@@ -1,0 +1,594 @@
+---
+// src/pages/subir-video.astro
+---
+
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <title>SEAMI - Subir Video</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+
+  <body class="dark-mode">
+    <!-- Header -->
+    <header class="header">
+      <a href="/dashboard-profesor" class="logo">SEAMI</a>
+
+      <div class="actions">
+        <!-- Botón para cambiar tema -->
+        <button id="toggle-theme" class="theme-toggle">🌙</button>
+
+        <!-- Botón de perfil con menú desplegable -->
+        <div class="profile-dropdown">
+          <button id="profile-btn" class="profile-icon">👤</button>
+          <div id="dropdown-menu" class="dropdown-content hidden">
+            <a href="/profile-profesor" class="dropdown-item">Ver Perfil</a>
+            <a href="/logout" class="dropdown-item">Cerrar Sesión</a>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Contenido principal -->
+    <main style="padding: 7rem 2rem 2rem 2rem;">
+      <section class="glass-container upload-form-section">
+        <h2>Subir Nuevo Video</h2>
+        <form
+          method="post"
+          action="/dashboard-profesor"
+          class="upload-form"
+          enctype="multipart/form-data"
+        >
+          <!-- Título del video -->
+          <div class="form-group">
+            <label for="title">Título del Video</label>
+            <input
+              type="text"
+              name="title"
+              id="title"
+              placeholder="Ejemplo: Introducción a las ecuaciones diferenciales"
+              required
+            />
+          </div>
+
+          <!-- Descripción -->
+          <div class="form-group">
+            <label for="description">Descripción del Video</label>
+            <textarea
+              name="description"
+              id="description"
+              rows="4"
+              placeholder="Agrega una descripción clara..."></textarea>
+          </div>
+
+          <!-- Portada del video -->
+          <div class="form-group">
+            <label for="thumbnail">Portada del Video</label>
+            <div class="file-input-container">
+              <input
+                type="file"
+                name="thumbnail"
+                id="thumbnail"
+                accept="image/*"
+                required
+              />
+              <div class="file-input-overlay">
+                <span class="file-icon">🖼️</span>
+                <span class="file-text">Seleccionar imagen</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Archivo de video -->
+          <div class="form-group">
+            <label for="video_file">Archivo de Video</label>
+            <div class="file-input-container">
+              <input
+                type="file"
+                name="video_file"
+                id="video_file"
+                accept="video/*"
+                required
+              />
+              <div class="file-input-overlay">
+                <span class="file-icon">🎥</span>
+                <span class="file-text">Seleccionar video</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Materia -->
+          <div class="form-group">
+            <label>Materia</label>
+            <div class="autocomplete-container">
+              <input
+                type="text"
+                id="subject-input"
+                placeholder="Selecciona la materia"
+                list="subjects"
+                required
+              />
+              <datalist id="subjects">
+                <option value="Matemáticas"></option>
+                <option value="Física"></option>
+                <option value="Química"></option>
+                <option value="Biología"></option>
+                <option value="Historia"></option>
+              </datalist>
+            </div>
+          </div>
+
+          <!-- Semestre -->
+          <div class="form-group">
+            <label>Semestre</label>
+            <input
+              type="number"
+              name="semester"
+              id="semester"
+              min="1"
+              max="6"
+              placeholder="Ingresa el semestre"
+              required
+            />
+         
+
+          <!-- Botón de envío -->
+          <button type="submit" class="btn-submit">Subir Video</button>
+        </form>
+      </section>
+    </main>
+
+    <!-- Script para modo oscuro -->
+    <script is:inline>
+      const toggleBtn = document.getElementById("toggle-theme");
+      const body = document.body;
+
+      const savedTheme = localStorage.getItem("theme");
+      if (savedTheme === "light") {
+        body.classList.remove("dark-mode");
+        toggleBtn.textContent = "☀️";
+      }
+
+      toggleBtn.addEventListener("click", () => {
+        body.classList.toggle("dark-mode");
+        const isDarkMode = body.classList.contains("dark-mode");
+        toggleBtn.textContent = isDarkMode ? "🌙" : "☀️";
+        localStorage.setItem("theme", isDarkMode ? "dark" : "light");
+      });
+
+      const profileBtn = document.getElementById("profile-btn");
+      const dropdownMenu = document.getElementById("dropdown-menu");
+
+      profileBtn.addEventListener("click", () => {
+        dropdownMenu.classList.toggle("hidden");
+      });
+
+      document.addEventListener("click", function (event) {
+        if (
+          !profileBtn.contains(event.target) &&
+          !dropdownMenu.contains(event.target)
+        ) {
+          dropdownMenu.classList.add("hidden");
+        }
+      });
+    </script>
+
+    <style>
+      /* Reset básico */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Segoe UI", sans-serif;
+      }
+
+      body {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: linear-gradient(to right bottom, #0f172a, #50315c);
+        color: white;
+        transition:
+          background 0.4s ease,
+          color 0.4s ease;
+        animation: fadeInUp 0.8s ease-out;
+      }
+
+      .light-mode {
+        background: linear-gradient(to right bottom, #e0e0e0, #ffffff);
+        color: #333;
+      }
+
+      .light-mode .glass-container {
+        background: rgba(255, 255, 255, 0.6);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+      }
+
+      .light-mode input,
+      .light-mode textarea {
+        background: rgba(255, 255, 255, 0.9);
+        color: #333;
+      }
+
+      .light-mode .btn-submit {
+        background-color: #8bc34a;
+        color: #0f172a;
+        border: none;
+      }
+
+      .light-mode .theme-toggle {
+        background-color: #0f172a;
+        color: white;
+      }
+
+      /* === Header === */
+      .header {
+        position: fixed;
+        top: 0;
+        width: 100%;
+        z-index: 1000;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background-color: rgba(0, 0, 0, 0.6);
+        backdrop-filter: blur(10px);
+        padding: 1.5rem 2rem;
+        color: white;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+        transition: all 0.3s ease;
+        animation: fadeInUp 0.8s ease-out;
+      }
+
+      .actions {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+      }
+
+      .logo {
+        font-size: 1.7rem;
+        font-weight: bold;
+        color: #8bc34a;
+        text-decoration: none;
+        cursor: pointer;
+        transition: color 0.3s ease;
+      }
+
+      .logo:hover {
+        color: #6aab3b;
+      }
+
+      .theme-toggle {
+        background: transparent;
+        border: none;
+        font-size: 1.2rem;
+        cursor: pointer;
+        color: white;
+        transition: transform 0.3s ease;
+      }
+
+      .theme-toggle:hover {
+        transform: rotate(45deg);
+      }
+
+      .profile-dropdown {
+        position: relative;
+      }
+
+      .profile-icon {
+        background: transparent;
+        border: none;
+        font-size: 1.2rem;
+        color: white;
+        cursor: pointer;
+      }
+
+      .dropdown-content {
+        position: absolute;
+        right: 0;
+        top: 2.5rem;
+        background: rgba(255, 255, 255, 0.1);
+        min-width: 150px;
+        border-radius: 8px;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        z-index: 1000;
+      }
+
+      .dropdown-content.hidden {
+        display: none;
+      }
+
+      .dropdown-content a {
+        color: white;
+        padding: 0.75rem 1rem;
+        text-decoration: none;
+        display: block;
+        transition: background 0.3s ease;
+      }
+
+      .dropdown-content a:hover {
+        background-color: rgba(255, 255, 255, 0.1);
+      }
+
+      .light-mode .header {
+        background: #ffffffcc;
+        color: #0f172a;
+        border-bottom: 1px solid #ccc;
+      }
+
+      .light-mode .logo {
+        color: #0f172a;
+      }
+
+      .light-mode .theme-toggle {
+        background-color: #0f172a;
+        color: white;
+      }
+
+      .light-mode .dropdown-content {
+        background: rgba(255, 255, 255, 0.9);
+        border: 1px solid rgba(0, 0, 0, 0.1);
+      }
+
+      .light-mode .dropdown-content a {
+        color: #0f172a;
+      }
+
+      .light-mode .dropdown-content a:hover {
+        background-color: rgba(0, 0, 0, 0.05);
+      }
+
+      /* === Contenedor Glassmorphic === */
+      .glass-container {
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 16px;
+        padding: 2.5rem 5rem;
+        max-width: 1200px;
+        width: 100%;
+        min-width: 600px;
+        box-sizing: border-box;
+        text-align: left;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        animation: fadeInUp 0.8s ease-out 0.2s backwards;
+      }
+
+      h2 {
+        font-size: 1.8rem;
+        margin-bottom: 1.5rem;
+        color: #ffffffcc;
+      }
+
+      .upload-form {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+      }
+
+      .form-group {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+      }
+
+      .form-group label {
+        font-size: 0.95rem;
+        font-weight: 500;
+      }
+
+      .form-group input[type="text"],
+      .form-group input[type="file"],
+      .form-group input[type="number"],
+      .form-group textarea {
+        width: 100%;
+        padding: 0.8rem;
+        border: none;
+        border-radius: 8px;
+        background: rgba(255, 255, 255, 0.1);
+        color: white;
+        outline: none;
+        font-size: 1rem;
+        transition: all 0.3s ease;
+      }
+
+      .form-group input:focus,
+      .form-group textarea:focus {
+        background: rgba(255, 255, 255, 0.15);
+        box-shadow: 0 0 5px rgba(139, 195, 74, 0.4);
+      }
+
+      /* === Autocomplete para Materia === */
+      /* === Estilos para Autocomplete === */
+      .autocomplete-container {
+        position: relative;
+      }
+
+      .autocomplete-container input {
+        width: 100%;
+        padding: 0.8rem;
+        border: none;
+        border-radius: 8px;
+        background: rgba(255, 255, 255, 0.1);
+        color: white;
+        outline: none;
+        font-size: 1rem;
+        transition: background 0.3s ease;
+      }
+
+      .autocomplete-container input:focus {
+        background: rgba(255, 255, 255, 0.15);
+        box-shadow: 0 0 5px rgba(139, 195, 74, 0.4);
+      }
+
+      /* === Estilos para Semestre === */
+      .form-group input[type="number"] {
+        padding: 0.8rem;
+        border: none;
+        border-radius: 8px;
+        background: rgba(255, 255, 255, 0.1);
+        color: white;
+        outline: none;
+        font-size: 1rem;
+        transition: background 0.3s ease;
+      }
+
+      .form-group input[type="number"]:focus {
+        background: rgba(255, 255, 255, 0.15);
+        box-shadow: 0 0 5px rgba(139, 195, 74, 0.4);
+      }
+
+      /* === Botón de subida === */
+      .btn-submit {
+        margin-top: 1rem;
+        padding: 0.8rem;
+        background: transparent;
+        color: white;
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        border-radius: 8px;
+        font-size: 1rem;
+        font-weight: bold;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      .btn-submit:hover {
+        background-color: #8bc34a;
+        color: #0f172a;
+        border-color: #8bc34a;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(139, 195, 74, 0.3);
+      }
+
+      .btn-submit:active {
+        transform: translateY(-1px);
+      }
+
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @media (max-width: 600px) {
+        .glass-container {
+          padding: 1.5rem;
+          margin: 1rem;
+        }
+
+        .form-group input,
+        .form-group textarea {
+          font-size: 0.95rem;
+        }
+      }
+
+      .file-input-container {
+        position: relative;
+        width: 100%;
+      }
+
+      .file-input-container input[type="file"] {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        opacity: 0;
+        cursor: pointer;
+        z-index: 2;
+      }
+
+      .file-input-overlay {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.8rem;
+        border: 2px dashed rgba(255, 255, 255, 0.3);
+        border-radius: 8px;
+        background: rgba(255, 255, 255, 0.05);
+        transition: all 0.3s ease;
+      }
+
+      .file-input-container:hover .file-input-overlay {
+        border-color: #8bc34a;
+        background: rgba(139, 195, 74, 0.1);
+      }
+
+      .file-icon {
+        font-size: 1.2rem;
+      }
+
+      .file-text {
+        color: rgba(255, 255, 255, 0.8);
+      }
+
+      .select-container {
+        position: relative;
+        width: 100%;
+      }
+
+      .select-container select {
+        width: 100%;
+        padding: 0.8rem;
+        padding-right: 2.5rem;
+        border: none;
+        border-radius: 8px;
+        background: linear-gradient(90deg, #232946 60%, #8bc34a 120%);
+        color: #fff;
+        outline: none;
+        font-size: 1rem;
+        appearance: none;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        font-weight: 500;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+      }
+
+      .select-container select:focus {
+        background: linear-gradient(90deg, #3a2443 60%, #8bc34a 120%);
+        box-shadow: 0 0 0 2px #8bc34a;
+      }
+
+      .select-arrow {
+        position: absolute;
+        right: 1rem;
+        top: 50%;
+        transform: translateY(-50%);
+        color: #8bc34a;
+        pointer-events: none;
+        transition: transform 0.3s ease;
+      }
+
+      .select-container:hover .select-arrow {
+        color: #b6e388;
+      }
+
+      .select-container select:focus + .select-arrow {
+        transform: translateY(-50%) rotate(180deg);
+      }
+
+      .light-mode .select-container select {
+        background: linear-gradient(90deg, #e0e0e0 60%, #8bc34a 120%);
+        color: #222;
+      }
+
+      .light-mode .select-container select:focus {
+        background: linear-gradient(90deg, #fff 60%, #8bc34a 120%);
+      }
+
+      .light-mode .select-arrow {
+        color: #8bc34a;
+      }
+
+      .light-mode .select-container:hover .select-arrow {
+        color: #b6e388;
+      }
+    </style>
+  </body>
+</html>

@@ -1,6 +1,7 @@
 ---
 // src/pages/dashboard.astro
 ---
+
 <html lang="es">
   <head>
     <meta charset="UTF-8" />
@@ -33,14 +34,14 @@
       <input type="text" placeholder="Buscar tema o profesor..." />
     </section>
 
-    <!-- Contenido principal -->
-    <main style="padding: 2rem;">
+    <main>  
+      <!-- Grid de Videos -->
       <section class="video-grid">
         <!-- Video 1 -->
         <div class="video-card">
           <a href="#" class="video-thumbnail">
             <img
-              src="/img/video-card-fisica.jpg"
+              src="https://via.placeholder.com/320x180?text=Miniatura+del+video "
               alt="Miniatura del video"
             />
             <span class="video-duration">44:29</span>
@@ -57,7 +58,7 @@
         <div class="video-card">
           <a href="#" class="video-thumbnail">
             <img
-              src="https://via.placeholder.com/320x180?text=Miniatura+del+video"
+              src="https://via.placeholder.com/320x180?text=Miniatura+del+video "
               alt="Miniatura del video"
             />
             <span class="video-duration">8:55</span>
@@ -74,7 +75,7 @@
         <div class="video-card">
           <a href="#" class="video-thumbnail">
             <img
-              src="https://via.placeholder.com/320x180?text=Miniatura+del+video"
+              src="https://via.placeholder.com/320x180?text=Miniatura+del+video "
               alt="Miniatura del video"
             />
             <span class="video-duration">16:43</span>
@@ -91,7 +92,7 @@
         <div class="video-card">
           <a href="#" class="video-thumbnail">
             <img
-              src="https://via.placeholder.com/320x180?text=Miniatura+del+video"
+              src="https://via.placeholder.com/320x180?text=Miniatura+del+video "
               alt="Miniatura del video"
             />
             <span class="video-duration">20:15</span>
@@ -126,16 +127,19 @@
     </script>
 
     <script is:inline>
-      const profileBtn = document.getElementById('profile-btn');
-      const dropdownMenu = document.getElementById('dropdown-menu');
+      const profileBtn = document.getElementById("profile-btn");
+      const dropdownMenu = document.getElementById("dropdown-menu");
 
-      profileBtn.addEventListener('click', () => {
-        dropdownMenu.classList.toggle('hidden');
+      profileBtn.addEventListener("click", () => {
+        dropdownMenu.classList.toggle("hidden");
       });
 
-      document.addEventListener('click', function (event) {
-        if (!profileBtn.contains(event.target) && !dropdownMenu.contains(event.target)) {
-          dropdownMenu.classList.add('hidden');
+      document.addEventListener("click", function (event) {
+        if (
+          !profileBtn.contains(event.target) &&
+          !dropdownMenu.contains(event.target)
+        ) {
+          dropdownMenu.classList.add("hidden");
         }
       });
     </script>
@@ -149,6 +153,28 @@
         font-family: "Segoe UI", sans-serif;
       }
 
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @keyframes slideIn {
+        from {
+          opacity: 0;
+          transform: translateX(-50px);
+        }
+        to {
+          opacity: 1;
+          transform: translateX(0);
+        }
+      }
+
       body {
         min-height: 100vh;
         display: flex;
@@ -157,7 +183,10 @@
         justify-content: flex-start;
         background: linear-gradient(to right bottom, #0f172a, #3a2443);
         color: white;
-        transition: background 0.4s ease, color 0.4s ease;
+        transition:
+          background 0.4s ease,
+          color 0.4s ease;
+        animation: fadeIn 0.8s ease-out;
       }
 
       .light-mode {
@@ -177,6 +206,7 @@
         backdrop-filter: blur(10px);
         padding: 1rem 2rem;
         box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+        animation: slideIn 0.8s ease-out;
       }
 
       .actions {
@@ -261,6 +291,7 @@
         border-radius: 16px;
         backdrop-filter: blur(10px);
         box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        animation: slideIn 0.8s ease-out 0.2s backwards;
       }
 
       .search-bar input {
@@ -276,11 +307,11 @@
 
       .video-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        grid-template-columns: repeat(3, 1fr);
         gap: 1.5rem;
         margin-top: 1.5rem;
         padding: 0 2rem;
-        max-width: 1000px;
+        max-width: 1200px;
         width: 100%;
       }
 
@@ -289,10 +320,15 @@
         flex-direction: column;
         cursor: pointer;
         transition: transform 0.2s ease;
-        
-        
-        
+        animation: fadeIn 0.8s ease-out backwards;
       }
+
+      .video-card:nth-child(1) { animation-delay: 0.3s; }
+      .video-card:nth-child(2) { animation-delay: 0.4s; }
+      .video-card:nth-child(3) { animation-delay: 0.5s; }
+      .video-card:nth-child(4) { animation-delay: 0.6s; }
+      .video-card:nth-child(5) { animation-delay: 0.7s; }
+      .video-card:nth-child(6) { animation-delay: 0.8s; }
 
       .video-card:hover {
         transform: scale(1.02);
@@ -340,13 +376,19 @@
         color: #ccc;
       }
 
+      @media (max-width: 1024px) {
+        .video-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+
       @media (max-width: 600px) {
         .search-bar {
           padding: 1rem;
         }
 
         .video-grid {
-          grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+          grid-template-columns: 1fr;
         }
       }
     </style>
